@@ -1,3 +1,15 @@
 .row{
   padding: 10px;
 }
+.text-right{
+  float: right;
+  display: none;
+  visibility: hidden;
+}
+.panel-title:hover .text-right{
+  float: right;
+  display: block;
+  color: red;
+  visibility: visible;
+  cursor: pointer;
+}
