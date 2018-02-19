@@ -5,8 +5,36 @@ class TaskForm extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
+			id: '',
 			name : '',
 			status: false,
+		}
+	}
+
+	componentWillMount() {
+		if (this.props.taskEditing) {
+			this.setState({
+				id : this.props.taskEditing.id,
+				name : this.props.taskEditing.name,
+				status : this.props.taskEditing.status,
+			})
+		}
+	}
+
+	componentWillReceiveProps(nextProps) {
+		if (nextProps && nextProps.taskEditing) {
+			this.setState({
+				id : nextProps.taskEditing.id,
+				name : nextProps.taskEditing.name,
+				status : nextProps.taskEditing.status,
+			})
+		}
+		else if (!nextProps.taskEditing) {
+			this.setState({
+				id : '',
+				name : '',
+				status : false,
+			})
 		}
 	}
 
@@ -36,16 +64,19 @@ class TaskForm extends Component {
 
 	onClear = () => {
 		this.setState({
+			id: '',
 			name: '',
 			status: false
 		});
 	}
 
 	render() {
+		var { id } = this.state;
 		return (
 			<div className="panel panel-warning">
 				<div className="panel-heading">
-					<h3 className="panel-title">Thêm Công Việc
+					<h3 className="panel-title">
+					{ id !== '' ? 'Cập Nhật Công Việc' : 'Thêm Công Việc' }
 					<span onClick={this.onCloseForm} className="fa fa-times-circle text-right"></span>
 					</h3>
 				</div>
